@@ -1,0 +1,551 @@
+/* ==========================================================
+   Portfolio stylesheet — organized & commented
+   Sections: Fonts · Variables · Base · Nav · Hero · Marquee ·
+   Sections · Gallery · Contact · Footer · Reveal · Responsive
+   ========================================================== */
+
+/* ---------- Fonts (كانت ناقصة: بدونها الخطوط مش هتظهر) ---------- */
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&display=swap");
+
+/* ---------- Variables ---------- */
+:root {
+  --brown: #5e442e;
+  --blue: #b9d9df;
+  --butter: #ffefb9;
+  --cream: #fff8e2;
+  --ink: #2e2015;
+  --soft: #7a5c48;
+}
+
+/* ---------- Base ---------- */
+/* box-sizing و padding كانوا غلط جوه :root، اتنقلوا لمكانهم الصح */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "DM Sans", Arial, sans-serif;
+  line-height: 1.6;
+  overflow-x: clip; /* clip بدل hidden علشان الـ sticky nav يفضل شغال */
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+h1,
+h2,
+h3 {
+  font-family: Anton, Impact, "Arial Narrow", sans-serif;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: 0.5px;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--brown);
+  outline-offset: 3px;
+}
+
+/* ---------- Navigation ---------- */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 5vw;
+  background: var(--brown);
+  color: var(--cream);
+}
+
+nav b {
+  font-family: Anton, Impact, sans-serif;
+  font-weight: 400;
+  font-size: 1.25rem;
+  letter-spacing: 1px;
+}
+
+nav div {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s;
+}
+
+nav a:hover {
+  border-color: var(--butter);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  background: var(--blue);
+  min-height: 68vh;
+}
+
+.hero .l {
+  padding: 7vh 5vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero small {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brown);
+  margin-bottom: 8px;
+}
+
+.hero h1 {
+  font-size: clamp(2.3rem, 5.6vw, 4.6rem);
+  color: var(--brown);
+}
+
+.hero h1 span {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 4px;
+}
+
+.hero h1 span i {
+  display: block;
+  font-style: normal;
+  transform: translateY(110%);
+  animation: up 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.hero h1 span:nth-child(2) i { animation-delay: 0.12s; }
+.hero h1 span:nth-child(3) i { animation-delay: 0.24s; color: #8a6a4c; }
+
+.hero p {
+  max-width: 40ch;
+  margin: 20px 0 26px;
+  font-size: 1rem;
+  opacity: 0;
+  animation: fade 0.7s 0.8s forwards;
+}
+
+/* Buttons */
+.btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 26px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border: 2px solid var(--brown);
+  transition: transform 0.25s, background 0.25s, color 0.25s;
+}
+
+.btn.f {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.btn:not(.f):hover {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* Hero right side */
+.hero .r {
+  background: var(--butter);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 5vh 0;
+}
+
+.ring {
+  position: absolute;
+  width: min(62%, 330px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px dashed var(--brown);
+  animation: turn 30s linear infinite;
+  opacity: 0.5;
+}
+
+.photo {
+  width: min(70%, 240px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 8px solid var(--brown);
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  animation: fade 1s 0.4s both, bob 5s 1.4s ease-in-out infinite;
+}
+
+.spin {
+  position: absolute;
+  width: min(88%, 470px);
+  aspect-ratio: 1;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px dashed var(--brown);
+  opacity: 0.5;
+  right: 5%;
+  top: 6%;
+  animation: turn 14s linear infinite;
+}
+
+/* ---------- Keyframes ---------- */
+@keyframes up   { to { transform: none; } }
+@keyframes fade { to { opacity: 1; } }
+@keyframes bob  { 50% { transform: translateY(-12px); } }
+@keyframes turn { to { transform: rotate(360deg); } }
+@keyframes slide { to { transform: translateX(-50%); } }
+
+/* ---------- Marquee ----------
+   ملحوظة: لازم تكرر المحتوى جوه الـ div مرتين في الـ HTML
+   علشان حركة -50% تلف بدون ما تتقطع. */
+.marquee {
+  background: var(--brown);
+  color: var(--butter);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 11px 0;
+  direction: ltr;
+}
+
+.marquee div {
+  display: inline-block;
+  animation: slide 26s linear infinite;
+  font-family: Anton, Impact, sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.marquee b {
+  color: var(--blue);
+  margin: 0 20px;
+  font-weight: 400;
+}
+
+/* ---------- Generic sections ---------- */
+section {
+  padding: 9vh 5vw;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  color: var(--brown);
+  margin-bottom: 4vh;
+  position: relative;
+  display: inline-block;
+}
+
+h2::after {
+  content: "";
+  display: block;
+  height: 5px;
+  width: 0;
+  background: var(--blue);
+  margin-top: 8px;
+  transition: width 0.9s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.skills h2::after { background: var(--butter); }
+
+h2.in::after,
+html:not(.js) h2::after { width: 100%; }
+
+/* About (two columns) */
+.two {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5vw;
+  align-items: start;
+}
+
+.two p {
+  font-size: 1.08rem;
+  max-width: 52ch;
+}
+
+/* Education / experience rows */
+.edu { background: var(--butter); }
+
+.row {
+  padding: 18px 0;
+  border-bottom: 2px solid var(--brown);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4px 20px;
+  flex-wrap: wrap;
+  transition: padding 0.3s;
+}
+
+.row:hover { padding-left: 14px; }
+.row h3 { font-size: 1.4rem; }
+.row p  { width: 100%; color: var(--soft); }
+
+/* Skills */
+.skills {
+  background: var(--brown);
+  color: var(--cream);
+}
+
+.skills h2 { color: var(--butter); }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chips span {
+  padding: 10px 22px;
+  border-radius: 999px;
+  background: var(--blue);
+  color: var(--brown);
+  font-weight: 700;
+  font-size: 0.95rem;
+  transition: transform 0.25s;
+}
+
+.chips span:nth-child(3n + 2) { background: var(--butter); }
+.chips span:hover { transform: rotate(-4deg) scale(1.08); }
+
+/* ---------- Gallery ---------- */
+.grid {
+  display: flex;
+  gap: 22px;
+  align-items: flex-start;
+  max-width: 900px;   /* قلّلي الرقم تصغر الصور أكتر */
+  margin: 0 auto;
+}
+
+.col {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: zoom-in;
+  font: inherit;
+  color: inherit;
+}
+
+.card .wrap {
+  overflow: hidden;
+  border-radius: 6px;
+  transition: border-radius 0.5s;
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.card:hover .wrap,
+.card:focus-visible .wrap { border-radius: 70px 70px 6px 6px; }
+
+.card:hover img,
+.card:focus-visible img { transform: scale(1.07); }
+
+.card h3 {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: var(--brown);
+}
+
+.card small { color: var(--soft); }
+
+/* Lightbox */
+dialog {
+  border: 0;
+  background: transparent;
+  max-width: 92vw;
+  max-height: 92vh;
+  padding: 0;
+  margin: auto;
+}
+
+dialog::backdrop { background: rgba(46, 32, 21, 0.88); }
+
+dialog img {
+  max-width: 92vw;
+  max-height: 88vh;
+  display: block;
+  border-radius: 6px;
+}
+
+dialog button {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  font-size: 1.6rem;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--butter);
+  color: var(--brown);
+  cursor: pointer;
+}
+
+/* ---------- Contact ---------- */
+.contact {
+  background: var(--blue);
+  text-align: center;
+}
+
+.contact h2 { margin-bottom: 5vh; }
+
+.cgrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.cgrid a {
+  background: var(--cream);
+  color: var(--brown);
+  border-radius: 16px;
+  padding: 22px 14px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+  word-break: break-word;
+}
+
+.cgrid a span {
+  display: block;
+  font-family: Anton, Impact, sans-serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.cgrid a small {
+  display: block;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+
+.cgrid a:hover {
+  transform: translateY(-8px) rotate(-1.5deg);
+  background: var(--brown);
+  color: var(--cream);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  background: var(--brown);
+  color: var(--cream);
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+}
+
+/* ---------- Scroll reveal (يحتاج class "js" على <html> و "in" من الـ JS) ---------- */
+.js .rv {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.8s var(--d, 0s) ease,
+              transform 0.8s var(--d, 0s) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.js .rv.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* الـ hover لازم يغلب الـ reveal بعد ما العنصر يظهر */
+.js .chips span.rv.in:hover {
+  transform: rotate(-4deg) scale(1.08);
+  transition-delay: 0s;
+}
+
+.js .cgrid a.rv.in:hover {
+  transform: translateY(-8px) rotate(-1.5deg);
+  transition-delay: 0s;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .cgrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .hero,
+  .two { grid-template-columns: 1fr; }
+  .hero .r { min-height: 42vh; }
+  nav div { gap: 12px; }
+  nav a { font-size: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+  .cgrid { grid-template-columns: 1fr; }
+  .grid { flex-direction: column; }
+  .col { width: 100%; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero h1 span i { transform: none; }
+  .hero p,
+  .photo { opacity: 1; }
+  .js .rv { opacity: 1; transform: none; }
+  h2::after { width: 100%; }
+}
